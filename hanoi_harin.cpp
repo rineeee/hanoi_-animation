@@ -105,7 +105,7 @@ void check33()
 		if (*b == 695) i = check3();
 		if (*a == 95)  check11();
 		if (*a == 395) check22();
-		if (*a == 695)  check33();
+		if (*a == 695) check33();
 		locateObject(initObjects[n-1], scene1, *b, y[i]);
 		//printf("원판%d - %c to %c\n", n, a, b);
 		move(n - 1, c, b, a);
@@ -120,6 +120,7 @@ void mouseCallback(ObjectID object, int x, int y, MouseAction action)
 {
 	int a = 95, b = 395, c = 695;
 	if (object == start) {
+		timerMixing = createTimer();
 		move(n, &a, &b, &c);
 	}
 }
