@@ -7,11 +7,17 @@
 SceneID scene1;
 ObjectID start;
 ObjectID initObjects[5];
-
 TimerID timerMixing;
 int mixCount = 31;
 const Second animationTime = 0.05f;
 
+//각 'a' 'b' 'c' 열에 칸이 있는지 없는지 여부 파악용 
+int y[5] = { 190,240,290,340,390 };
+int y1[5] = { 1,1,1,1,1 };
+int y2[5] = { 0,0,0,0,0 };
+int y3[5] = { 0,0,0,0,0 };
+
+//사진 지정을 위한 구조체
 struct POS {
 	int x, y;
 };
@@ -19,11 +25,7 @@ struct POS {
 const POS positions[5] = {
 	{95, 390},{95, 340},{95, 290},{95, 240},{95, 190} };
 
-int y[5] = {190,240,290,340,390};
-int y1[5] = { 1,1,1,1,1 };
-int y2[5] = { 0,0,0,0,0 };
-int y3[5] = { 0,0,0,0,0 };
-
+//사진을 intitObjects에 넣고 show
 void put()
 {
 	char image[25];
@@ -35,6 +37,7 @@ void put()
 	}
 }
 
+//check1~check33 각 열에 칸여부 파악 및 변경
 int check1()
 {
 	for (int i = 0; i < 5; i++)
@@ -91,6 +94,7 @@ void check33()
 	}
 }
 
+//하노이 함수
 	void move( int n, int* a, int* b, int* c)
 {	
 		int i,k;
