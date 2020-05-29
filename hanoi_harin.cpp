@@ -11,7 +11,9 @@ TimerID timerMixing;
 int mixCount = 30;
 const Second animationTime = 0.5f;
 int i = 0;
-
+int  k = 0;;
+int a_k[40], b_k[40], c_k[40];
+int p = 0;
 //각 'a' 'b' 'c' 열에 칸이 있는지 없는지 여부 파악용 
 int y[5] = { 190,240,290,340,390 };
 int y1[5] = { 1,1,1,1,1 };
@@ -107,11 +109,15 @@ void check33()
 		}
 	}
 }
+void mix() {
+	locateObject(initObjects[a_k[p] - 1], scene1, b_k[p], y[c_k[p]]);
+	setTimer(timerMixing, animationTime);
+	startTimer(timerMixing);
+}
 
 //하노이 함수
 void move(int n, int a, int b, int c)
-{
-	
+{	
 	if (n == 1) {
 		//printf("원판1 - %c to %c\n", a, b);
 		if (b == 95)  i = check1();
@@ -120,9 +126,12 @@ void move(int n, int a, int b, int c)
 		if (a == 95)  check11();
 		if (a == 395) check22();
 		if (a == 695) check33();
-		locateObject(initObjects[0], scene1, b, y[i]);
-		setTimer(timerMixing, animationTime);
-		startTimer(timerMixing);
+		a_k[k] = n;
+		b_k[k] = b;
+		c_k[k] = i;
+		k++;
+		//locateObject(initObjects[0], scene1, b, y[i]);
+
 	}
 	else {
 		move(n - 1, a, c, b);
@@ -132,24 +141,24 @@ void move(int n, int a, int b, int c)
 		if (a == 95)  check11();
 		if (a == 395) check22();
 		if (a == 695) check33();
-		locateObject(initObjects[n - 1], scene1, b, y[i]);
-		setTimer(timerMixing, animationTime);
-		startTimer(timerMixing);
+		a_k[k] = n;
+		b_k[k] = b;
+		c_k[k] = i;
+		k++;
+		//locateObject(initObjects[n - 1], scene1, b, y[i]);
 		//printf("원판%d - %c to %c\n", n, a, b);
 		move(n - 1, c, b, a);
-		setTimer(timerMixing, animationTime);
-		startTimer(timerMixing);
+
 	}
-	setTimer(timerMixing, animationTime);
-	startTimer(timerMixing);
+
 }
 
-int n = 5, a = 95, b = 395, c = 695;
 
 void mouseCallback(ObjectID object, int x, int y, MouseAction action)
 {
-	int a = 95, b = 395, c = 695;
+
 	if (object == start) {
+		move(5, 95, 395, 695);
 		timerMixing = createTimer();
 		setTimer(timerMixing, animationTime);
 		startTimer(timerMixing);
@@ -159,17 +168,12 @@ void mouseCallback(ObjectID object, int x, int y, MouseAction action)
 void timerCallback(TimerID timer)
 {
 
-	setTimer(timerMixing, animationTime);
-	startTimer(timerMixing);
 	if (mixCount > 0) {
 		--mixCount;
-	
-		move(n, c, b, a);
-		setTimer(timerMixing, animationTime);
-		startTimer(timerMixing);
+		mix();
+		p++;
 	}
-	setTimer(timerMixing, animationTime);
-	startTimer(timerMixing);
+
 }
 
 
