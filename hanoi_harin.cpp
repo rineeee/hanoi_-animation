@@ -10,8 +10,9 @@ ObjectID initObjects[5];
 TimerID timerMixing;
 int mixCount = 31;
 const Second animationTime = 0.1f;
+
 int i = 0;
-int  k = 0;;
+int  k = 0;
 int a_k[40], b_k[40], c_k[40];
 int p = 0;
 //각 'a' 'b' 'c' 열에 칸이 있는지 없는지 여부 파악용 
